@@ -1,7 +1,8 @@
 package com.raiseup.recipeApp.model;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Recipe{
@@ -23,7 +24,7 @@ public class Recipe{
     @JoinTable(name = "recipe_category",
     joinColumns = @JoinColumn(name="recipe_id"),
     inverseJoinColumns = @JoinColumn(name="category_id"))
-    private Set<Category> categories;
+    private List<Category> categories= new ArrayList<>();
 
     @Lob
     private Byte[]image;
@@ -32,8 +33,10 @@ public class Recipe{
     private Notes notes;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private List<Ingredient> ingredients= new ArrayList<>();
 
+
+//    Getters and Setters -------------------
     public Long getId() {
         return id;
     }
@@ -106,13 +109,7 @@ public class Recipe{
         this.difficulty = difficulty;
     }
 
-    public Set<Category> getCategories() {
-        return categories;
-    }
 
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
-    }
 
     public Byte[] getImage() {
         return image;
@@ -130,11 +127,19 @@ public class Recipe{
         this.notes = notes;
     }
 
-    public Set<Ingredient> getIngredients() {
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(Set<Ingredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 }
